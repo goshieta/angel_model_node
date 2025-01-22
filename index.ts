@@ -28,11 +28,14 @@ function one_tenshi() {
 function main() {
   let total = 0;
   const cycleTime = 5000;
+  console.time();
   for (let i = 0; i < cycleTime; i++) {
     process.stdout.write(`\r現在の回数: ${i + 1}/${cycleTime}`);
     total += one_tenshi();
   }
-  console.log("\n期待値は" + total / cycleTime + `です`);
+  process.stdout.write("\n");
+  console.timeEnd();
+  console.log("期待値は" + total / cycleTime + `です`);
 }
 
 main();
