@@ -12,7 +12,7 @@ export const variables = {
   judgeNumberOfPeople: 0,
   thresholdOfVolume: 0.1,
   probabilityOfSpeak: 0.5,
-  numberOfPeople: 10,
+  numberOfPeople: 40,
 };
 
 function main(
@@ -56,12 +56,6 @@ const experimentData: {
   step: number;
 }[] = [
   {
-    variable: "thresholdOfVolume",
-    initial: 0.1,
-    end: 20,
-    step: 0.1,
-  },
-  {
     variable: "probabilityOfSpeak",
     initial: 0,
     end: 0.7,
@@ -70,8 +64,14 @@ const experimentData: {
   {
     variable: "numberOfPeople",
     initial: 0,
-    end: 20,
+    end: 50,
     step: 1,
+  },
+  {
+    variable: "thresholdOfVolume",
+    initial: 0.1,
+    end: 20,
+    step: 0.1,
   },
 ];
 experimentData.forEach((data) =>
