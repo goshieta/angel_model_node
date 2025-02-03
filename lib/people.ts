@@ -1,9 +1,4 @@
-import {
-  probabilityOfSpeak,
-  speedOfSound,
-  frequency,
-  thresholdOfVolume,
-} from "..";
+import { speedOfSound, frequency, variables } from "..";
 
 export default class People {
   name: string;
@@ -14,7 +9,7 @@ export default class People {
 
   constructor(x: number, y: number) {
     this.name = crypto.randomUUID();
-    this.talkingArray = [Math.random() < probabilityOfSpeak];
+    this.talkingArray = [Math.random() < variables.probabilityOfSpeak];
     this.x = x;
     this.y = y;
     this.timeing = Math.random();
@@ -42,8 +37,8 @@ export default class People {
 
   process(volume: number, time: number): boolean {
     const intTime = time * 10;
-    this.talkingArray[intTime] = Math.random() < probabilityOfSpeak;
-    if (volume < thresholdOfVolume) {
+    this.talkingArray[intTime] = Math.random() < variables.probabilityOfSpeak;
+    if (volume < variables.thresholdOfVolume) {
       this.talkingArray[intTime] = false;
     }
     return this.talkingArray[intTime];

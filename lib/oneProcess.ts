@@ -1,4 +1,4 @@
-import { frequency } from "..";
+import { frequency, variables, numberOfPeople } from "..";
 import People from "./people";
 
 //一回の天使が通るまでの実験
@@ -8,7 +8,7 @@ export function oneProcess(): number {
   const classroomY = 9; //(m)
   //初期化
   const peopleList = Array.from(
-    { length: 40 },
+    { length: numberOfPeople },
     () => new People(Math.random() * classroomX, Math.random() * classroomY)
   );
   while (true) {
@@ -42,7 +42,7 @@ export function oneProcess(): number {
 
       numberOfTalking += onePeople.process(volume, time) ? 1 : 0;
     });
-    if (numberOfTalking === 0) {
+    if (numberOfTalking <= variables.judgeNumberOfPeople) {
       break;
     }
   }
