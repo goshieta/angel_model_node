@@ -15,13 +15,13 @@ export const variables = {
   numberOfPeople: 40,
 };
 
-function main() {
+function main(
+  variable: keyof typeof variables,
+  initial: number,
+  end: number,
+  step: number
+) {
   let data: [number[], number[]] = [[], []];
-
-  const variable = "numberOfPeople";
-  const initial = 10;
-  const end = 11;
-  const step = 1;
 
   for (
     variables[variable] = initial;
@@ -49,4 +49,31 @@ function main() {
   exportToCSV(data, `./out/data_x_${variable}.csv`);
 }
 
-main();
+const experimentData: {
+  variable: keyof typeof variables;
+  initial: number;
+  end: number;
+  step: number;
+}[] = [
+  {
+    variable: "thresholdOfVolume",
+    initial: 0,
+    end: 20,
+    step: 0.1,
+  },
+  {
+    variable: "probabilityOfSpeak",
+    initial: 0,
+    end: 0.7,
+    step: 0.05,
+  },
+  {
+    variable: "numberOfPeople",
+    initial: 0,
+    end: 50,
+    step: 1,
+  },
+];
+experimentData.forEach((data) =>
+  main(data.variable, data.initial, data.end, data.step)
+);
