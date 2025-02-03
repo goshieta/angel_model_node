@@ -6,21 +6,21 @@ export const temp = 20;
 export const speedOfSound = 331.5 + 0.6 * temp;
 export const frequency = 1000; //一般的な女性の声の周波数
 export const cycleTime = 100;
-export const numberOfPeople = 40; //生成する人数
 
 //変数
 export const variables = {
-  judgeNumberOfPeople: 10,
+  judgeNumberOfPeople: 0,
   thresholdOfVolume: 0.1,
   probabilityOfSpeak: 0.5,
+  numberOfPeople: 40,
 };
 
 function main() {
   let data: [number[], number[]] = [[], []];
 
-  const variable = "judgeNumberOfPeople";
+  const variable = "numberOfPeople";
   const initial = 10;
-  const end = 40;
+  const end = 11;
   const step = 1;
 
   for (

@@ -1,4 +1,4 @@
-import { frequency, variables, numberOfPeople } from "..";
+import { frequency, variables } from "..";
 import People from "./people";
 
 //一回の天使が通るまでの実験
@@ -8,11 +8,12 @@ export function oneProcess(): number {
   const classroomY = 9; //(m)
   //初期化
   const peopleList = Array.from(
-    { length: numberOfPeople },
+    { length: variables.numberOfPeople },
     () => new People(Math.random() * classroomX, Math.random() * classroomY)
   );
+  peopleList.forEach((onePeople) => onePeople.submitDelay(peopleList));
   while (true) {
-    time = (Math.floor(time * 10) + 1) / 10; //timeを0.1増やす。バグを防ぐための実装
+    time = time + 1;
     let numberOfTalking = 0;
     peopleList.forEach((onePeople) => {
       //音量の計算を実行
@@ -23,16 +24,14 @@ export function oneProcess(): number {
         currentTime < time;
         currentTime += 1 / (frequency * 10)
       ) {
-        const targetX = onePeople.x;
-        const targetY = onePeople.y;
         //位相を取得する
         const currentPhase = peopleList.reduce(
-          (previousValue, onePeople) =>
-            (previousValue += onePeople.getPhase(
-              targetX,
-              targetY,
-              currentTime
-            )),
+          (previousValue, targetPeople) => {
+            if (onePeople.name === targetPeople.name) return previousValue;
+            return (previousValue += targetPeople.getPhaseByTime(
+              currentTime - targetPeople.peopleDelayinfo[onePeople.name]
+            ));
+          },
           0
         );
         if (currentPhase > max) max = currentPhase;
