@@ -11,7 +11,7 @@ export const cycleTime = 100;
 export const variables = {
   judgeNumberOfPeople: 0,
   thresholdOfVolume: 0.1,
-  probabilityOfSpeak: 0.5,
+  probabilityOfSpeak: 0.15,
   numberOfPeople: 40,
 };
 
@@ -19,7 +19,8 @@ function main(
   variable: keyof typeof variables,
   initial: number,
   end: number,
-  step: number
+  step: number,
+  id: string
 ) {
   let data: [number[], number[]] = [[], []];
 
@@ -46,34 +47,19 @@ function main(
   }
 
   console.log(data);
-  exportToCSV(data, `./out/data_x_${variable}.csv`);
+  exportToCSV(data, `./out/data_x_${variable}_${id}.csv`);
 }
 
-const experimentData: {
-  variable: keyof typeof variables;
-  initial: number;
-  end: number;
-  step: number;
-}[] = [
-  {
-    variable: "probabilityOfSpeak",
-    initial: 0,
-    end: 0.7,
-    step: 0.05,
-  },
-  {
-    variable: "numberOfPeople",
-    initial: 0,
-    end: 50,
-    step: 1,
-  },
-  {
-    variable: "thresholdOfVolume",
-    initial: 0.1,
-    end: 20,
-    step: 0.1,
-  },
-];
-experimentData.forEach((data) =>
-  main(data.variable, data.initial, data.end, data.step)
-);
+for (
+  variables.numberOfPeople = 5;
+  variables.numberOfPeople < 40;
+  variables.numberOfPeople += 1
+) {
+  main(
+    "probabilityOfSpeak",
+    0.01,
+    0.2,
+    0.01,
+    `numberOfPeople${variables.numberOfPeople}`
+  );
+}
